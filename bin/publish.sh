@@ -7,7 +7,7 @@ cp src/index.js dist/index.js;
 yarn test;
 
 # move needed files to root
-cp -r ./dist ./;
+cp -R dist/. ./;
 
 # remove all un-needed files
 rm -rf bin dist node_modules src test .eslintrc.json .gitignore;
