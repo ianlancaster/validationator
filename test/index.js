@@ -1,5 +1,5 @@
 const assert = require('chai').assert
-const { validate, validateFunc } = require('../src')
+const { validate, validateFunc } = require('../dist')
 
 describe('validate.js tests', () => {
   context('STRING', () => {

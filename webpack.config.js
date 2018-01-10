@@ -1,7 +1,7 @@
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/validateFunc.js',
   output: {
-    filename: 'bundle.js',
+    filename: 'validateFunc.js',
     path: __dirname + '/dist'
   },
   module: {
