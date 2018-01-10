@@ -5,7 +5,16 @@ yarn build;
 yarn minify;
 cp src/index.js dist/index.js;
 yarn test;
-find ./ -type -not -name '.git' -not -name 'package.json' -not -name 'index.js' -not -name 'validate.js' -not -name 'validateFunc.js' -delete;
-# move solution to root
-# remove all unneccesary files
+
+# move needed files to root
+cp -r ./dist ./;
+
+# remove all un-needed files
+rm -rf bin dist node_modules src test .eslintrc.json .gitignore;
+
 # publish
+yarn publish;
+
+# revert changes
+git stash;
+yarn;
