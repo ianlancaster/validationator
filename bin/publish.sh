@@ -12,9 +12,9 @@ cp -R dist/. ./;
 # remove all un-needed files
 rm -rf bin dist node_modules src test .eslintrc.json .gitignore;
 
-# publish
-npm publish;
+# # publish
+# npm publish;
 
-# revert changes
-git stash;
-yarn;
+# # revert changes
+# git stash;
+# yarn;
