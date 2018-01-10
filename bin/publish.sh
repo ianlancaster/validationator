@@ -13,7 +13,7 @@ cp -R dist/. ./;
 rm -rf bin dist node_modules src test .eslintrc.json .gitignore;
 
 # publish
-yarn publish;
+npm publish;
 
 # revert changes
 git stash;
