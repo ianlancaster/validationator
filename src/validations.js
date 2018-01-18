@@ -21,6 +21,7 @@ const validations = [
       if (children) {
         if (!Array.isArray(children)) throw new Error(`${name}: ${value}. Children must be an array. Got type ${typeof children}.`)
         children.forEach((model, i) => {
+          if (typeof model === 'string') model = { type: model }
           model.name = model.name || i
           validate(value[i], model)
         })
@@ -54,7 +55,8 @@ const validations = [
         const modelKeys = Object.keys(children)
 
         modelKeys.forEach(modelKey => {
-          const currentModel = children[modelKey]
+          let currentModel = children[modelKey]
+          if (typeof currentModel === 'string') currentModel = { type: currentModel }
           currentModel.name = currentModel.name || modelKey
           validate(value[modelKey], currentModel)
         })

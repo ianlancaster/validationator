@@ -1,5 +1,3 @@
-'use strict';
-
 (function () {
   // Establish the root object, `window` in the browser, or `global` on the server.
   var root = this
