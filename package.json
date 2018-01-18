@@ -1,6 +1,6 @@
 {
   "name": "validationator",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A versitile data validator and static type checker. Creat complex models for deeply nested data structures. Create statically typed functions. Switch to bool mode of use in form validation.",
   "main": "index.js",
   "directories": {
@@ -15,7 +15,8 @@
     "build": "babel src --presets es2015 --out-dir dist",
     "minify": "minify dist -d dist",
     "clean": "rm -rf dist",
-    "deploy": "chmod +x ./bin/publish-start.sh; ./bin/publish-start.sh"
+    "publish:start": "chmod +x ./bin/publish-start.sh; ./bin/publish-start.sh",
+    "publish:finish": "chmod +x ./bin/publish-start.sh; ./bin/publish-start.sh"
   },
   "repository": "asdf",
   "keywords": [
