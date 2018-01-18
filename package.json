@@ -16,7 +16,7 @@
     "minify": "minify dist -d dist",
     "clean": "rm -rf dist",
     "publish:start": "chmod +x ./bin/publish-start.sh; ./bin/publish-start.sh",
-    "publish:finish": "chmod +x ./bin/publish-start.sh; ./bin/publish-start.sh"
+    "publish:finish": "chmod +x ./bin/publish-finish.sh; ./bin/publish-finish.sh"
   },
   "repository": "asdf",
   "keywords": [
