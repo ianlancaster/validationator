@@ -6,7 +6,6 @@ TODO:
 - Conduct browser testing
 - Conduct performance tests
 - create a way to add specific validations for performance boost
-- Finish NPM pipeline
 - Documentation
   - validate.extensions
   - function level options

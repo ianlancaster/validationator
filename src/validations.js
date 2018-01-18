@@ -1,4 +1,5 @@
 const includesAnyTest = require('./utilities/includesAny')
+const validate = require('./validate')
 
 const validations = [
   {
@@ -110,6 +111,4 @@ const validations = [
   }
 ]
 
-// exports must be listed above validate require to avoid circular reference bug
 module.exports = validations
-const validate = require('./validate')

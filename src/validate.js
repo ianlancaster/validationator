@@ -51,6 +51,7 @@ const validate = (value, validation) => {
       if (!validation.type) throw new Error(`${name}: ${value}.type is required`)
       if (validation.extend) validation.extend(value, validation)
 
+      let validations = require('./validations')
       if (validate.extensions) validations = [ ...validations, ...validate.extensions ]
 
       validations.forEach(currentValidation => {
@@ -77,4 +78,3 @@ const validate = (value, validation) => {
 
 // exports must be listed above validations require to avoid circular reference bug
 module.exports = validate
-let validations = require('./validations')
