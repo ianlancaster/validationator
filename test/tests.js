@@ -126,8 +126,8 @@ describe('validate.js tests', () => {
 
   context('NUMBER', () => {
     it('type', () => {
-      validate(4, { type: 'number' })
-      assert.throws(() => validate('asdf', { type: 'number' }))
+      validate(4, 'number')
+      assert.throws(() => validate('asdf', 'number'))
     })
 
     it('min', () => {
@@ -152,28 +152,28 @@ describe('validate.js tests', () => {
 
     it('acceptedNulls', () => {
       validate(0, { type: 'number', acceptedNulls: [ 0 ] })
-      assert.throws(() => validate(0, { type: 'number' }))
+      assert.throws(() => validate(0, 'number'))
     })
   })
 
   context('FUNCTION', () => {
     it('type', () => {
-      validate(() => {}, { type: 'function' })
-      assert.throws(() => validate([], { type: 'function' }))
+      validate(() => {}, 'function')
+      assert.throws(() => validate([], 'function'))
     })
   })
 
   context('BOOLEAN', () => {
     it('type', () => {
-      validate(true, { type: 'boolean' })
-      assert.throws(() => validate('asdf', { type: 'boolean' }))
+      validate(true, 'boolean')
+      assert.throws(() => validate('asdf', 'boolean'))
     })
   })
 
   context('ARRAY', () => {
     it('array', () => {
-      validate([], { type: 'array' })
-      assert.throws(() => validate({}, { type: 'array' }))
+      validate([], 'array')
+      assert.throws(() => validate({}, 'array'))
     })
 
     it('maxLen', () => {
@@ -216,13 +216,13 @@ describe('validate.js tests', () => {
     it('children', () => {
       validate([2, 'asdf'], { type: 'array',
         children: [
-          { type: 'number' },
-          { type: 'string' }
+          'number',
+          'string'
         ]})
       assert.throws(() => validate([1, 2], { type: 'array',
         children: [
-          { type: 'number' },
-          { type: 'string' }
+          'number',
+          'string'
         ]}))
     })
 
@@ -241,8 +241,8 @@ describe('validate.js tests', () => {
 
   context('OBJECT', () => {
     it('type', () => {
-      validate({}, { type: 'object' })
-      assert.throws(() => validate([], { type: 'object' }))
+      validate({}, 'object')
+      assert.throws(() => validate([], 'object'))
     })
 
     it('requiredKeys', () => {
@@ -293,13 +293,13 @@ describe('validate.js tests', () => {
     it('children', () => {
       validate({ key1: 'a', key2: 2 }, { type: 'object',
         children: {
-          key2: { type: 'number' }
+          key2: 'number'
         }
       })
       assert.throws(() => validate({ key1: 'a', key2: '2' }, { type: 'object',
         children: {
           key1: { type: 'string' },
-          key2: { type: 'number' }
+          key2: 'number'
         }
       }))
     })
@@ -307,8 +307,8 @@ describe('validate.js tests', () => {
 
   context('EMAIL', () => {
     it('type', () => {
-      validate('user@company.com', { type: 'email' })
-      assert.throws(() => validate('usercompany.com', { type: 'email' }))
+      validate('user@company.com', 'email')
+      assert.throws(() => validate('usercompany.com', 'email'))
     })
   })
 
@@ -323,8 +323,8 @@ describe('validate.js tests', () => {
         }
       ]
 
-      validate('user@company.com', { type: 'company-email' })
-      assert.throws(() => validate('user@competitor.com', { type: 'company-email' }))
+      validate('user@company.com', 'company-email')
+      assert.throws(() => validate('user@competitor.com', 'company-email'))
     })
   })
 
@@ -332,7 +332,7 @@ describe('validate.js tests', () => {
     it('min', () => {
       const validation = { type: 'object',
         children: {
-          a1: { type: 'string' },
+          a1: 'string',
           a2: {
             type: 'object',
             requiredFields: ['b1'],
@@ -352,10 +352,10 @@ describe('validate.js tests', () => {
               {
                 type: 'object',
                 children: {
-                  c2: { type: 'boolean' }
+                  c2: 'boolean'
                 }
               },
-              { type: 'string' }
+              'string'
             ]
           }
         }
@@ -398,22 +398,28 @@ describe('validate.js tests', () => {
 
   context('OPTIONS', () => {
     it('bool', () => {
-      assert(validate('asdf', { type: 'string' }, { bool: true }))
-      assert(!validate(33, { type: 'string' }, { bool: true }))
+      assert(validate('asdf', {
+        type: 'string',
+        bool: true
+      }))
+      assert(!validate(33, {
+        type: 'string',
+        bool: true
+      }))
 
       validate.bool = true
-      assert(validate('asdf', { type: 'string' }))
-      assert(!validate(33, { type: 'string' }))
+      assert(validate('asdf', 'string'))
+      assert(!validate(33, 'string'))
       validate.bool = false
     })
 
     it('off', () => {
-      assert(validate(33, { type: 'string' }, { off: true }) === 33)
+      assert(validate(33, { type: 'string', off: true }) === 33)
     })
 
     it('warn', () => {
       console.log('NOTE: This will print an error to the console while testing. That is expected.')
-      assert(validate(33, { type: 'string' }, { warn: true }) === 33)
+      assert(validate(33, { type: 'string', warn: true }) === 33)
     })
   })
 })
@@ -422,15 +428,15 @@ describe('validateFunc.js tests', () => {
   context('validate output only', () => {
     it('should validate the output', () => {
       const testFunc = () => 'asdf'
-      testFunc.outputModel = { type: 'string' }
+      testFunc.outputModel = 'string'
       validateFunc(testFunc)
-      testFunc.outputModel = { type: 'number' }
+      testFunc.outputModel = 'number'
       assert.throws(() => validateFunc(testFunc))
     })
 
     it('should return the function return value', () => {
       const testFunc = () => 'asdf'
-      testFunc.outputModel = { type: 'string' }
+      testFunc.outputModel = 'string'
       assert(validateFunc(testFunc) === testFunc())
     })
   })
@@ -438,24 +444,21 @@ describe('validateFunc.js tests', () => {
   context('validate input only', () => {
     it('should validate a single func param', () => {
       const increment = number => number + 1
-      increment.inputModel = { type: 'number' }
+      increment.inputModel = 'number'
       validateFunc(increment, 1)
       assert.throws(() => validateFunc(increment, 'a'))
     })
 
     it('should validate a single array param', () => {
       const ct = arr => arr.length
-      ct.inputModel = { type: 'array' }
+      ct.inputModel = 'array'
       assert(validateFunc(ct, [[ 1, 2, 3 ]]) === 3)
       assert.throws(() => validateFunc(ct, 'a'))
     })
 
     it('should validate multiple input params', () => {
       const multiply = (a, b) => a * b
-      multiply.inputModel = [
-        { type: 'number' },
-        { type: 'number' }
-      ]
+      multiply.inputModel = [ 'number', 'number' ]
       assert(validateFunc(multiply, [2, 3]) === 6)
       assert.throws(() => validateFunc(multiply, [2, 'a']))
     })
@@ -463,13 +466,13 @@ describe('validateFunc.js tests', () => {
     it('should be able to handle OR validations', () => {
       const multiply = (a, b) => a * b
       multiply.inputModel = [
-        { type: 'number' },
-        [{ type: 'number' }, { type: 'string' }]
+        'number',
+        [ 'number', 'string' ]
       ]
       validateFunc(multiply, [2, 'a'])
       multiply.inputModel = [
-        { type: 'number' },
-        { type: 'number' }
+        'number',
+        'number'
       ]
       assert.throws(() => validateFunc(multiply, [2, 'a']))
     })
@@ -477,8 +480,8 @@ describe('validateFunc.js tests', () => {
     it('should validate deconstructed object params', () => {
       const multiply = ({ a, b }) => a * b
       multiply.inputModel = {
-        a: { type: 'number' },
-        b: { type: 'number' }
+        a: 'number',
+        b: 'number'
       }
       validateFunc(multiply, { a: 1, b: 8 })
       assert.throws(() => validateFunc(multiply, { a: 1, b: '8' }))
@@ -504,7 +507,7 @@ describe('validateFunc.js tests', () => {
       testFunc.outputModel = {
         type: 'object',
         children: {
-          see: { type: 'string' },
+          see: 'string',
           coolness: { type: 'number', min: 10000 },
           itSucks: { type: 'bool', notRequired: true }
         }

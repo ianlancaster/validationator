@@ -12,12 +12,17 @@ const validations = [
       if (typeof notIncludes !== 'undefined' && JSON.stringify(value).includes(JSON.stringify(notIncludes))) throw new Error(`Array ${name}: ${value} includes blacklisted string: ${notIncludes}.`)
       if (typeof includesAny !== 'undefined' && !includesAnyTest(value, includesAny, { stringify: true })) throw new Error(`Array ${name}: ${value} does not include required string from: ${includesAny}.`)
       if (typeof notIncludesAny !== 'undefined' && includesAnyTest(value, notIncludesAny, { stringify: true })) throw new Error(`Array ${name}: ${value} includes blacklisted string from: ${notIncludesAny}.`)
-      if (allChildren) value.forEach((item, i) => validate(value[i], allChildren, { name: i }))
+      if (allChildren) {
+        value.forEach((item, i) => {
+          allChildren.name = allChildren.name || i
+          validate(value[i], allChildren)
+        })
+      }
       if (children) {
         if (!Array.isArray(children)) throw new Error(`${name}: ${value}. Children must be an array. Got type ${typeof children}.`)
-        console.log('validate :  : ', validate)
         children.forEach((model, i) => {
-          validate(value[i], model, { name: i })
+          model.name = model.name || i
+          validate(value[i], model)
         })
       }
     }
@@ -49,7 +54,9 @@ const validations = [
         const modelKeys = Object.keys(children)
 
         modelKeys.forEach(modelKey => {
-          validate(value[modelKey], children[modelKey], modelKey)
+          const currentModel = children[modelKey]
+          currentModel.name = currentModel.name || modelKey
+          validate(value[modelKey], currentModel)
         })
       }
     }
@@ -93,9 +100,10 @@ const validations = [
     rules: (value, validation, name) => {
       validate(value, {
         type: 'string',
+        name,
         maxLen: 50,
         regEx: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      }, { name })
+      })
     }
   }
 ]

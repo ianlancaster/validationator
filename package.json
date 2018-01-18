@@ -13,7 +13,7 @@
     "build": "babel src --presets es2015 --out-dir dist",
     "minify": "minify dist -d dist",
     "clean": "rm -rf dist",
-    "deploy": "chmod +x ./bin/publish.sh; ./bin/publish.sh" 
+    "deploy": "chmod +x ./bin/publish.sh; ./bin/publish.sh"
   },
   "repository": "asdf",
   "keywords": [
@@ -43,7 +43,8 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "mocha": "^4.1.0"
+    "mocha": "^4.1.0",
+    "npm-cli-login": "0.0.10"
   },
   "dependencies": {
     "ians-utils": "^1.0.0",
