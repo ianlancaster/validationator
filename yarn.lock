@@ -2803,9 +2803,9 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
 
-validationator@^1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/validationator/-/validationator-1.1.6.tgz#2c2c56d19a8a8905c052f176b03a76bb9c56811c"
+validationator@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/validationator/-/validationator-1.1.7.tgz#2cdeffc2d22eff3dd748efc833ea43147621b4c5"
 
 verror@1.10.0:
   version "1.10.0"
