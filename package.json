@@ -15,7 +15,7 @@
     "build": "babel src --presets es2015 --out-dir dist",
     "minify": "minify dist -d dist",
     "clean": "rm -rf dist",
-    "deploy": "chmod +x ./bin/secret-publish.sh; ./bin/secret-publish.sh"
+    "deploy": "chmod +x ./bin/publish-start.sh; ./bin/publish-start.sh"
   },
   "repository": "asdf",
   "keywords": [
