@@ -537,7 +537,8 @@ module.exports = (validate, validateFunc) => {
         }
       ]
 
-      const leadValidationModel = lead => ({
+      const leadValidationModel = (lead, bool) => ({
+        bool,
         type: 'object',
         notIncludes: 'undefined',
         requiredKeys: [ 'ContactPosition', 'LeadTitle', 'LeadIndustries',
@@ -615,6 +616,9 @@ module.exports = (validate, validateFunc) => {
           validate(lead, leadValidationModel(lead))
         })
       })
+
+      assert(validate(leads[0], leadValidationModel(leads[0], 'bool')) === true)
+      assert(validate(leads[1], leadValidationModel(leads[1], 'bool')) === false)
     })
   })
 }
