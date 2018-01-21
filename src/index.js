@@ -110,15 +110,18 @@ const validationsMaster = {
     }
   },
 
-  'string': (value, { maxLen, minLen, regEx, includes, notIncludes, includesAny, notIncludesAny, name, lowerCase, upperCase }) => {
+  'string': (value, options) => {
+    const { maxLen, minLen, regEx, includes, notIncludes, includesAny, notIncludesAny, name } = options
     if (typeof value !== 'string') throw new Error(`Expected ${name}: ${value} to be type string. Got type ${typeof value}.`)
-    if (minLen && value.length < minLen) throw new Error(`String "${name}: ${value}" length is ${value.length}. Less than minimum ${minLen}.`)
+    if (minLen  && value.length < minLen) throw new Error(`String "${name}: ${value}" length is ${value.length}. Less than minimum ${minLen}.`)
     if (maxLen && value.length > maxLen) throw new Error(`String "${name}: ${value}" length is ${value.length}. more than maximum.`)
     if (regEx && !regEx.test(value)) throw new Error(`String "${name}: ${value}" does not match the validation regEx ${regEx}.`)
     if (includes && !value.includes(includes)) throw new Error(`String "${name}: ${value}" does not include required string: ${includes}.`)
     if (notIncludes && value.includes(notIncludes)) throw new Error(`String "${name}: ${value}" includes blacklisted string: ${notIncludes}.`)
     if (includesAny && !includesAnyTest(value, includesAny)) throw new Error(`String "${name}: ${value}" does not include any required string from: [${includesAny}].`)
     if (notIncludesAny && includesAnyTest(value, notIncludesAny)) throw new Error(`String "${name}: ${value}" includes a blacklisted string from: [${notIncludesAny}].`)
+    if ('upperCase' in options & !validator.isUppercase(value)) throw new Error(`String: ${name}: ${value} is not uppercase!`)
+    if ('lowerCase' in options & !validator.isLowercase(value)) throw new Error(`String: ${name}: ${value} is not lowercase!`)
   },
 
   'number': (value, { max, min, decimals, regEx, name }) => {

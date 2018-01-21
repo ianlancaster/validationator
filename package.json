@@ -34,8 +34,6 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-minify": "^0.2.0",
-    "babel-plugin-transform-es2015-spread": "^6.22.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015-script": "^1.1.0",
     "chai": "^4.1.2",
     "eslint": "^4.15.0",
@@ -46,7 +44,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "mocha": "^4.1.0",
     "npm-cli-login": "0.0.10",
-    "validationator": "^1.2.2"
+    "validationator": "^1.2.3"
   },
   "dependencies": {
     "validator": "^9.2.0"
