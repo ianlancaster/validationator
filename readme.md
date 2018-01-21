@@ -5,8 +5,9 @@ Why use validationator:
 * statically type js functions for more robust applications
 * it's super small, super fast, and backwards compatable
 * throw useful errors for faster debugging
-* very versitile api
+* very versitile api (try out bool mode to return true/false instead of errors)
 * validate forms with ease
+* easily add your own custom validations
 
 Wait, doesn't flow do this already? Yes, flow does allow for static typing, but it does not allow for nested data structures or non-type validation checks. This is also a semi-runtime library where flow is compile-time. I say semi because the library is set to look for a 'production' node environment variable and will to bypass any validation. 
 
