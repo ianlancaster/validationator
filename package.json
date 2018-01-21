@@ -27,7 +27,11 @@
     "typed functions",
     "deeply nested",
     "nested",
-    "data structures"
+    "data structures",
+    "static",
+    "validator",
+    "validation",
+    "validate"
   ],
   "author": "Ian Lancaster",
   "license": "ISC",
@@ -44,7 +48,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "mocha": "^4.1.0",
     "npm-cli-login": "0.0.10",
-    "validationator": "^1.2.3"
+    "validationator": "^2.0.0"
   },
   "dependencies": {
     "validator": "^9.2.0"
