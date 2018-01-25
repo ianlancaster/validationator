@@ -2,7 +2,7 @@
   <a href="https://hattonpoint.com">
     <img
       src="./assets/validationator-header.png"
-      style="width: 350px"
+      style="width: 500px"
     />
   </a>
   <p>Current version: 2.0.1</p>
