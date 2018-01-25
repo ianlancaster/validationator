@@ -1,4 +1,15 @@
-Validationator is a flexible and powerful javascript data validation library. validationator is split into two major functions; validate and validateFunc. validate is the core of the library allowing you to validate simple and complex data structures in various ways by creating a model of the data structure. validateFunc allows you to add an inputModel and/or outputModel to a function to make it statically typed. Validate uses the validator.js library under the hood, so if you are familiar with those validations you should be familiar with much of this library.
+<center>
+  <a href="https://hattonpoint.com">
+    <img
+      src="./assets/validationator-header.png"
+      style="width: 350px"
+    />
+  </a>
+  <p>Current version: 2.0.1</p>
+  <a href='./docs/changelog.md'><p>Change log</p></a>
+</center>
+
+Validationator is a flexible and powerful javascript typing & data validation library. validationator is split into two major functions; validate and validateFunc. validate is the core of the library allowing you to validate simple and complex data structures in various ways by creating a model of the data structure. validateFunc allows you to add an inputModel and/or outputModel to a function to make it statically typed. Validate uses the validator.js library under the hood, so if you are familiar with those validations you should be familiar with much of this library.
 
 Why use validationator:
 
@@ -279,7 +290,7 @@ To add validations define validate.extensions as an object. Every key you add wi
 
 validate itself throws errors by default, so feel free to validate itself within the validations.
 
-If you create a valuable validation please visit our contribution guidelines page and consider submitting a pull request :)
+If you create a valuable validation please visit our [contribution guidelines](./docs/contribution.md) page and consider submitting a pull request :)
 
 ```js
 const validate = require('validationator').validate
@@ -559,3 +570,6 @@ const testFunc2 = (num, char, bool) => {
  
 testFunc2(50, 'a', false) // now a strongly typed function
 ```
+
+TODO:
+* add class type with intanceOf and strictInstanceOf
