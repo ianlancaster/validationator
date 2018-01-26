@@ -1,13 +1,15 @@
-<div style="text-align: center">
-  <a href="https://hattonpoint.com">
-    <img
-      src="./assets/validationator-header.png"
-      style="width: 500px, display: block; margin: auto;"
-    />
-  </a>
-  <p>Current version: 2.0.1</p>
-  <a href='./docs/changelog.md'><p>Change log</p></a>
-</div>
+<center>
+  <div style="text-align: center">
+    <a href="https://hattonpoint.com">
+      <img
+        src="./assets/validationator-header.png"
+        style="width: 500px, display: block; margin: auto;"
+      />
+    </a>
+    <p>Current version: 2.0.1</p>
+    <a href='./docs/changelog.md'><p>Change log</p></a>
+  </div>
+</centergs>
 
 Validationator is a flexible and powerful javascript typing & data validation library. Validationator has four exports:
   * **validations** - an object of validation methods. These are used to power all other functions of the library. They can be extended, added to, and used ad hoc.
