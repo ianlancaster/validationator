@@ -294,6 +294,66 @@ module.exports = (validate, validateFunc, type) => {
         validate(sloth, { type: 'instance', of: Object })
         assert.throws(() => validate(sloth, { type: 'instance', of: Object, strict: true }))
       })
+
+      it('should know what a hooligan is', () => {
+        const Hooligan = class Hooligan {
+          constructor (name) {
+            this.name = name
+            this.stomach = []
+            this.mood = 'grumpy'
+          }
+
+          eat (food) {
+            this.stomach.push(food)
+          }
+
+          drink (drank) {
+            if (drank === 'coffee') this.mood = 'better'
+          }
+        }
+
+        const Ian = new Hooligan('Ian')
+
+        validate(Ian, {
+          type: 'instance',
+          of: Hooligan,
+          strict: true,
+          children: {
+            name: String,
+            eat: Function,
+            drink: Function
+          }
+        })
+
+        const backPack = {
+          brand: 'North Face',
+          price: 20,
+          contents: [
+            'water bottle',
+            'jacket'
+          ],
+          fannyPack: {
+            style: -1000,
+            contents: 'questionable'
+          }
+        }
+
+        const validationModel = {
+          Object,
+          brand: String,
+          price: { Number, max: 50 },
+          contents: { Array, allChilden: String },
+          fannyPack: {
+            Object,
+            children: {
+              style: { Number, max: 0 },
+              contents: { type: 'is', exactly: 'questionable' }
+            }
+          }
+        }
+
+        validate(backPack, validationModel)
+      })
     })
 
     context('EMAIL', () => {
@@ -425,7 +485,7 @@ module.exports = (validate, validateFunc, type) => {
         min: 10
       })
 
-      assert.throws(() => x({ Number, min: 20 }, 11))
+      assert.throws(() => x({ Number, min: 20 }, 12))
     })
   })
 

@@ -81,9 +81,9 @@ const validationsMaster = {
     if (typeof value !== 'function') throw new Error(`Expected ${name}: ${value} to be type function. Got ${typeof value}.`)
   },
 
-  'object': (value, { requiredKeys, children, minLen, maxLen, allChildren, includes, notIncludes, includesAny, notIncludesAny, name }) => {
+  'object': (value, { requiredKeys, children, minLen, maxLen, allChildren, includes, notIncludes, includesAny, notIncludesAny, name, isInstance }) => {
     const valueKeys = Object.keys(value)
-    if (typeof value !== 'object' || Array.isArray(value)) throw new Error(`Expected ${name}: ${value} to be type object. Got type ${typeof value}. Array.isArray? ${Array.isArray(value)}.`)
+    if ((typeof value !== 'object' || Array.isArray(value)) && !isInstance) throw new Error(`Expected ${name}: ${value} to be type object. Got type ${typeof value}. Array.isArray? ${Array.isArray(value)}.`)
     if (includes && !JSON.stringify(value).includes(JSON.stringify(includes))) throw new Error(`Object ${name}: ${value} does not include required string: ${includes}.`)
     if (notIncludes && JSON.stringify(value).includes(JSON.stringify(notIncludes))) throw new Error(`Object ${name}: ${value} includes blacklisted string: ${notIncludes}.`)
     if (minLen && valueKeys.length < minLen) throw new Error(`Object ${name}: ${value} length is ${valueKeys.length}. Less than minimum ${minLen}.`)
@@ -103,7 +103,6 @@ const validationsMaster = {
       const modelKeys = Object.keys(children)
       modelKeys.forEach(modelKey => {
         let currentModel = children[modelKey]
-        if (typeof currentModel === 'string') currentModel = { type: currentModel }
         currentModel.name = currentModel.name || modelKey
         validate(value[modelKey], currentModel)
       })
@@ -148,13 +147,15 @@ const validationsMaster = {
     if (typeof value !== 'boolean') throw new Error(`Expected ${name}: ${value} to be type boolean. Got ${typeof value}.`)
   },
 
-  'instance': (value, { of, strict }) => {
+  'instance': (value, options) => {
+    const { of } = options
     if (!of || typeof of !== 'function') throw new Error(`Instance validation for ${value} failed. Must provide constructor through the "of" option.`)
-    if (strict) {
+    if ('strict' in options) {
       if (value.constructor !== of) throw new Error(`value: ${value} is not a strict instance of ${of}`)
     } else {
       if (!(value instanceof of)) throw new Error(`value: ${value} is not an instance of ${of}`)
     }
+    validate(value, Object.assign({}, options, { type: Object, isInstance: true }))
   },
 
   'email': (value, options) => {
@@ -508,13 +509,19 @@ const validateInput = (params, inputModel, func, name) => {
 // type
 // ------------------------------------
 
-const type = (validationType, value, validationOptions) => {
+const type = (dataType, value, validationModel) => {
   const shouldBypassValidation = () =>
     (process.env.NODE_ENV === 'production' || type.off) && (!type.on || !type.bool)
   if (shouldBypassValidation()) return
+
   try {
-    if (typeof validationType !== 'object') validationType = { type: validationType }
-    return validate(value, Object.assign(validationType, validationOptions))
+    if (validationModel) {
+      if (typeof dataType !== 'object') dataType = { type: dataType }
+      if (validationModel.type) validate(value, validationModel)
+      return validate(value, Object.assign({}, validationModel, dataType))
+    } else {
+      return validate(value, dataType)
+    }
   } catch (err) {
     if (type.warn && !type.bool) {
       console.warn(err)
