@@ -6,7 +6,7 @@
         style="width: 500px, display: block; margin: auto;"
       />
     </a>
-    <p>Current version: 2.0.1</p>
+    <p>Current version: 2.0.3</p>
     <a href='./docs/changelog.md'><p>Change log</p></a>
   </div>
 </centergs>
